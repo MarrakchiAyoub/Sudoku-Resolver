@@ -91,6 +91,7 @@
         $('button').css({'display':'block'});
     });
     function send(){
+        //this function fills the results array and call the solve() function
         $('input').each((index, element)=>{
             if(!isNaN(element.value) && element.value) {
                 let td = $(element).parent();
