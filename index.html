@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sudoku Resolver</title>
+        <style>
+            input{
+                width: 20px;
+                height: 20px;
+                text-align: center;
+            }
+            table{
+                border-collapse: collapse;
+            }
+            table tr td{
+                border: 2px solid black;
+            }
+            button{
+                margin-left: 190px;
+                margin-top: 15px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr data-line="1" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+            <tr data-line="2" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+            <tr data-line="3" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+            <tr data-line="4" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+            <tr data-line="5" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+            <tr data-line="6" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+            <tr data-line="7" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+            <tr data-line="8" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+            <tr data-line="9" >
+                <td data-col="1"></td><td data-col="2"></td><td data-col="3"></td>
+                <td data-col="4"></td><td data-col="5"></td><td data-col="6"></td>
+                <td data-col="7"></td><td data-col="8"></td><td data-col="9"></td>
+            </tr>
+        </table>
+        <button onclick="send()">Resolve</button>
+        <!--
+            this button is to fill the testing numbers
+        <button onclick="fill()">fill</button>
+            this button is only for test purposes can not work with the loop in resolve()
+        <button onclick="resolve()">repeat</button>
+        -->
+    </body>
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.js"
+			  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+              crossorigin="anonymous"></script>
+    <script src="./classes.js"></script>
+    <script src="./main.js"></script>
+    <script>
+    $(document).ready(()=>{
+        var field = document.createElement("input");
+        $(field).attr('type', 'text');
+        $('td').append(field);
+        $('button').css({'display':'block'});
+    });
+    function send(){
+        $('input').each((index, element)=>{
+            if(!isNaN(element.value) && element.value) {
+                let td = $(element).parent();
+                let tr = td.parent();
+                addNumber(tr.data('line'), td.data('col'), element.value);
+            }
+        });
+            resolve();
+    }
+    function fill(){
+    //This function is for filling the grid with the numbers in the array
+        var test = [[8,,,9,,4,,2,1],
+                    [,9,5,,,1,7,,4],
+                    [1,,,7,6,,,9,],
+                    [5,,,,7,9,,4,6],
+                    [,,9,,,6,,3,8],
+                    [,,4,,,,,,],
+                    [,,6,,,,,,7],
+                    [,,1,,2,5,9,8,3],
+                    [,,,3,,,,,2]];
+        $('input').each((index, element)=>{
+            let td = $(element).parent();
+            let tr = td.parent();
+            let i = parseInt(tr.data('line'))-1;
+            let j = parseInt(td.data('col'))-1;
+            if(test[i][j]!=NaN){
+                $(element).val(test[i][j]);
+            }
+        });
+    }
+    </script>
+</html>
